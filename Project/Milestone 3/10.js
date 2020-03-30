@@ -750,16 +750,3 @@ function DijkstraImpl(source){
         }
     }
 }
-
-/**
- * printTree to print the output of prim and Dijkstra algorithms
-   @author Amal Meer
-   @param {object[]} VT an array of 
-*/
-
-function printTree(VT){
-    for(i=0; i<VT.length-1; i++){
-        document.write((VT[i].distance===undefined? '':VT[i].distance) ,'(',VT[i].parent,',',VT[i].tree,'),');
-    }
-    document.write((VT[VT.length-1].distance===undefined? '':VT[VT.length-1].distance) ,'(',VT[VT.length-1].parent,',',VT[VT.length-1].tree,').<br>');
-}
