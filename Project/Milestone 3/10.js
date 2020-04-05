@@ -41,7 +41,55 @@ function main_graph()
 	
 	document.write("<p>bfs_order: ", g.bfs_order, "</p>");
 
+
+//------------- print transitive closure matrix using Warshall-Floyd---------------------------
+    document.write('<br>Transitive closure<br>');
+    g.warshallFloyd();
+    
+    if(g.adjMatrix[0][0].tc === undefined)
+    {
+        document.write("Transitive closure is computed for directed graph only<br>");
+    }
+    else
+    {
+        for(var i=0; i<g.nv; i++){
+            for(var j=0; j<g.nv; j++){
+                document.write(g.adjMatrix[i][j].tc,',');
+            }
+            document.write('<br>');
+        }
+    }
+
+//--------------------------print distance matrix using Warshall-Floyd---------------------------
 	
+	document.write('<br>Distance matrix <br>');
+        g.warshallFloyd();
+    	
+     for (var i = 0; i < g.floydD.length; i++)
+    {
+        document.write(g.floydD[i], "<br>");
+    }
+
+
+//-------------------print output of MST by prim------------------------------------------------  
+
+    document.write('<br>MST by Prim2 (linear PQ)<br>');
+    
+    g.PrimMST();
+    if(g.weighted){
+        for(i=0; i<g.verticesTree.length-1; i++){
+        document.write((g.verticesTree[i].dis===undefined? '':g.verticesTree[i].dis) ,'(',g.verticesTree[i].parent,',',g.verticesTree[i].V,'),');
+    } 
+    document.write((g.verticesTree[g.verticesTree.length-1].dis===undefined? '':g.verticesTree[g.verticesTree.length-1].dis) ,'(',g.verticesTree[g.verticesTree.length-1].parent,',',g.verticesTree[g.verticesTree.length-1].V,').<br>');
+    
+    }
+    else
+    {
+       document.write('minimal spanning tree works for weighted graph only<br>');
+    }
+
+
+//------------------print shortest path by Dijkstra--------------------------------------------	
 	/**
   @Dijkstra to print shortest path by Dijkstra from vertex 0. this method problem is work only for weighted graph.
   */
@@ -153,7 +201,7 @@ function Graph()
 	/**Compute DFS-Based TC matrix*/
 	this.DfsTC = dfsTCImpl;
 
-	this.PrimMST = PrimImpl;
+	this.PrimMST = primImpl2;
 	this.Dijkstra = DijkstraImpl; 
 }
 
@@ -326,6 +374,120 @@ function PrimImpl()
 
         min = Infinity;
     }
+}
+
+
+//----------------------------------prim2-------------------------------------------
+
+function primImpl2(){
+
+  //check if the graph is weighted to be sure that there is MST
+ if(this.weighted){
+
+    //craete the queue
+    var pq = new PQueue();
+
+    // create the penulimate array
+    var penultimate = []; 
+
+    // create array have all weights of edges
+    var weight = []; 
+
+    this.verticesTree=[]; 
+    var u;
+
+    
+
+
+    for (var j = 0; j < this.nv; j++)
+
+    {
+	// mark all vertices unvisited and if penulimate array equal '-' 
+        this.vert[j].visit = false;
+        penultimate[j] = "-";
+    	// set all the weight array by infinity.
+        weight[j] = Infinity;
+
+    }
+
+
+
+    // edges array contains all the edges (v,u)
+    var edges =this.vert[0].incidentEdges();
+
+    for(var i=0;i<edges.length;i++){
+
+        //insert dest. vertex and weight of edge in the queue.
+        pq.insert(edges[i].adjVert_i, edges[i].edgeWeight); 
+
+        // make a src. vertex penultimate of dest. vertex.
+        penultimate[edges[i].adjVert_i]=0; 
+
+        //add weight of edge to weight array.
+        weight[edges[i].adjVert_i] = edges[i].edgeWeight;
+
+    }
+
+
+    //mark the vertex as true
+    this.vert[0].visit = true;
+
+    //intitalize verticesTree by the first vertex 
+    this.verticesTree[0] = {
+        V: 0,
+        parent: penultimate[0]
+
+    } 
+
+
+
+    //path for the rest vertices
+    for(var i=1; i<this.nv; i++){
+
+        //delete the minimum weighted edge 
+        u =pq.deleteMin();
+
+        //mark a vertex visited
+        this.vert[u].visit = true;
+
+       
+        //add the vertex that was deleted
+        this.verticesTree[i] = {
+            V: u,
+            parent: penultimate[u]
+
+        }  
+
+
+
+       // edges array contains all the edges (v,u)
+        edges=this.vert[u].incidentEdges();
+
+        for(var j=0;j<edges.length;j++){
+
+
+         //if vertex doesn't mark as visit then insert or update dest vertex and its weight
+            if(!this.vert[edges[j].adjVert_i].visit && edges[j].edgeWeight < weight[edges[j].adjVert_i]){
+
+		//insert dest vertex
+                pq.insert(edges[j].adjVert_i,edges[j].edgeWeight);
+
+		//update penultimate
+                penultimate[edges[j].adjVert_i]=u;
+
+		//update weight of edge
+                weight[edges[j].adjVert_i] = edges[j].edgeWeight;
+
+            }
+            
+
+        }
+
+    }
+
+ }
+ 
+
 }
 
 // -----------------------------------------------------------------------
