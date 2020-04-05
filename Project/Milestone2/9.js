@@ -10,7 +10,8 @@
 /**
   First of all we will create array input names for input files in this project
   v means vertex, e means edges
-  @input
+  @input  the input from external files
+  exercise8_4_1, exercise8_4_7 and ksa12city
 */
 var _v = [], _e = [];   // for exercise8_4_1
 var _v2 = [], _e2 = []; // for exercise8_4_7
@@ -101,6 +102,7 @@ function main_graph()
 
   /**
   @prim for graph g3 to find the minimum spanning tree using prim's algorithm
+  @explain the PrimMST method is using to find minimum edges between vertices
   */
   g3.PrimMST();
   document.write("<p>MST for " + g3.label);
@@ -315,6 +317,13 @@ function dfsTCImpl()
     }
 }
 
+/**
+ * Represents a function
+ * @implement PrimImpl
+ * @author Ghadeer Qalas
+ * @function this function find the minimum spanning tree of the edges between vertices
+ * @type void 
+ */
 function PrimImpl()
 {
     // // create nodes
@@ -364,7 +373,6 @@ function PrimImpl()
 
         // mark VerticesTree as visited
         this.Prim_Edge[n - 1].u.visit = true;
-
         min = Infinity;
     }
 }
