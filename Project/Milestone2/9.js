@@ -222,7 +222,10 @@ function shortestPathImpl(u_i, v_i)
 	return this.floydD[u_i][v_i];
 }
 
-
+/**
+@function isDAGImpl
+@type boolean
+*/
 function isDAGImpl()
 {
 	for (var i = 0, j = 0; i < this.warshallTC.length && j < this.warshallTC.length; i++, j++)
@@ -319,10 +322,10 @@ function dfsTCImpl()
 
 /**
  * Represents a function
- * @implement PrimImpl
+ * @implement this function find the minimum spanning tree of the edges between vertices
  * @author Ghadeer Qalas
- * @function this function find the minimum spanning tree of the edges between vertices
- * @type void 
+ * @function PrimImpl
+ * @type void
  */
 function PrimImpl()
 {
