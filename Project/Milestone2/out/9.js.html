@@ -1,4 +1,32 @@
-// CPCS 324 Algorithms & Data Structures 2
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: 9.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: 9.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// CPCS 324 Algorithms &amp; Data Structures 2
 // Graph data structure starter - Transitive Closure Package
 // 2018, Dr. Muhammad Al-Hashimi
 
@@ -47,57 +75,57 @@ function main_graph()
 
 	// perform breadth-first search and output stored result
 	g.topoSearch(1);// 0 means DFS choice, while 1 means BFS choice of topological search
-	document.write("<p>bfs_order: ", g.bfs_order, "</p>");
+	document.write("&lt;p>bfs_order: ", g.bfs_order, "&lt;/p>");
 
 	// report connectivity status if available
-	document.write("<p>", g.componentInfo(), "</p>");
+	document.write("&lt;p>", g.componentInfo(), "&lt;/p>");
 
     //output DFS-based transitive closure matrix
     g.DfsTC();
-    document.write("<p> TC matrix by DFS:<br>");
-    for (var i = 0; i < g.dfsTC.length; i++)
+    document.write("&lt;p> TC matrix by DFS:&lt;br>");
+    for (var i = 0; i &lt; g.dfsTC.length; i++)
     {
-        document.write(g.dfsTC[i], "<br>");
+        document.write(g.dfsTC[i], "&lt;br>");
   	}
 
 	/**
   @output_Warshall for graph g transitive closure matrix
   */
-    document.write("<p>TC matrix by Warshall-Floyd:<br>");
+    document.write("&lt;p>TC matrix by Warshall-Floyd:&lt;br>");
     g.warshallFloyd();
-    for (var i = 0; i < g.warshallTC.length; i++)
+    for (var i = 0; i &lt; g.warshallTC.length; i++)
     {
-        document.write(g.warshallTC[i], "<br>");
+        document.write(g.warshallTC[i], "&lt;br>");
 	}
 
 	/**
   @Dag_graph for graph g check if the graph is DAG (directed acyclic graph)
   */
-	document.write("<p>DAG: ", g.isDAG(), "</p>");
+	document.write("&lt;p>DAG: ", g.isDAG(), "&lt;/p>");
 
   /**
   @output_Warshall for graph g2 transitive closure matrix
   */
-    document.write("<p>TC matrix by Warshall-Floyd:<br>");
+    document.write("&lt;p>TC matrix by Warshall-Floyd:&lt;br>");
     g.warshallFloyd();
-    for (var i = 0; i < g2.warshallTC.length; i++)
+    for (var i = 0; i &lt; g2.warshallTC.length; i++)
     {
-        document.write(g2.warshallTC[i], "<br>");
+        document.write(g2.warshallTC[i], "&lt;br>");
   }
 
   /**
   @Dag_graph for graph g check if the graph is DAG (directed acyclic graph)
   */
-  document.write("<p>DAG: Exercise 8.4: 7", g2.isDAG(), "</p>");
+  document.write("&lt;p>DAG: Exercise 8.4: 7", g2.isDAG(), "&lt;/p>");
 
 
 	//output floyed-distance matrix
     g2.warshallFloyd();
-    document.write("<p>Distance matrix<br>");
+    document.write("&lt;p>Distance matrix&lt;br>");
 
-    for (var i = 0; i < g2.floydD.length; i++)
+    for (var i = 0; i &lt; g2.floydD.length; i++)
     {
-        document.write(g2.floydD[i], "<br>");
+        document.write(g2.floydD[i], "&lt;br>");
     }
 
   /**
@@ -105,15 +133,15 @@ function main_graph()
   @explain the PrimMST method is using to find minimum edges between vertices
   */
   g3.PrimMST();
-  document.write("<p>MST for " + g3.label);
+  document.write("&lt;p>MST for " + g3.label);
   var path = "( " + g3.Prim_Edge[0].v.label + " ";
   var MST_weight = 0;
-  for (var i = 0; i < g3.Prim_Edge.length; i++)
+  for (var i = 0; i &lt; g3.Prim_Edge.length; i++)
   {
       path = path + " --" + g3.Prim_Edge[i].w + "--> " + g3.Prim_Edge[i].u.label;
       MST_weight = MST_weight + g3.Prim_Edge[i].w;
   }
-  document.write("</br>" + path + " )</br>The total tree weight is " + MST_weight);
+  document.write("&lt;/br>" + path + " )&lt;/br>The total tree weight is " + MST_weight);
 
 }
 
@@ -228,7 +256,7 @@ function shortestPathImpl(u_i, v_i)
 */
 function isDAGImpl()
 {
-	for (var i = 0, j = 0; i < this.warshallTC.length && j < this.warshallTC.length; i++, j++)
+	for (var i = 0, j = 0; i &lt; this.warshallTC.length &amp;&amp; j &lt; this.warshallTC.length; i++, j++)
 		if (this.hasPath(i, j))
 			return false;
 	return true;
@@ -241,14 +269,14 @@ function warshallFloydImpl()
     this.makeAdjMatrix();
 
     //Fill  warshallTC[] and distance matrices (floydD[]) by adjacent matrix
-    for (var k = 0; k < this.adjMatrix.length; k++)
+    for (var k = 0; k &lt; this.adjMatrix.length; k++)
     {
         //Copy row by row
         this.warshallTC[k] = this.adjMatrix[k].slice();
         this.floydD[k] = this.adjMatrix[k].slice();
-        for (var x = 0; x < this.nv; x++)
+        for (var x = 0; x &lt; this.nv; x++)
         {
-            if (this.adjMatrix[k][x] == 0 &&  k!=x)
+            if (this.adjMatrix[k][x] == 0 &amp;&amp;  k!=x)
             {
                 this.floydD[k][x] = Infinity;
             }
@@ -256,21 +284,21 @@ function warshallFloydImpl()
     }
 
     // warshall-Floyed algorithm
-    for (var k = 0; k < this.floydD.length; k++)
+    for (var k = 0; k &lt; this.floydD.length; k++)
     {
-        for (var i = 0; i < this.floydD.length; i++)
+        for (var i = 0; i &lt; this.floydD.length; i++)
         {
-            for (var j = 0; j < this.floydD.length; j++)
+            for (var j = 0; j &lt; this.floydD.length; j++)
             {
                 this.floydD[i][j] = Math.min(this.floydD[i][j], (this.floydD[i][k] + this.floydD[k][j]));
-                this.warshallTC[i][j] = this.warshallTC[i][j] || (this.warshallTC[i][k] && this.warshallTC[k][j])?1:0;
+                this.warshallTC[i][j] = this.warshallTC[i][j] || (this.warshallTC[i][k] &amp;&amp; this.warshallTC[k][j])?1:0;
             }
         }
     }
 
     //change the value from Infinity to 0 (because there is no distance = Infinity)
-    for (var i = 0; i < this.floydD.length; i++)
-        for (var j = 0; j < this.floydD.length; j++)
+    for (var i = 0; i &lt; this.floydD.length; i++)
+        for (var j = 0; j &lt; this.floydD.length; j++)
             if (this.floydD[i][j] == Infinity)
                 this.floydD[i][j] = 0;
 
@@ -287,29 +315,29 @@ function warshallFloydImpl()
 function dfsTCImpl()
 {
     // for each vertex
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         //process vertex v
         var v = this.vert[i];
 
         // mark all vertices unvisited
-        for (var p = 0; p < this.nv; p++)
+        for (var p = 0; p &lt; this.nv; p++)
         {
             this.vert[p].visit = false;
         }
 
         // create and init the corresponding row
         this.dfsTC[i] = [];
-        for (var j = 0; j < this.nv; j++)
+        for (var j = 0; j &lt; this.nv; j++)
             this.dfsTC[i][j] = 0;
 
         //perform DFS search for each adjacent to the vertex v by its ID
         var w = v.adjacentByID();
-        for (var n = 0; n < w.length; n++)
+        for (var n = 0; n &lt; w.length; n++)
             this.dfs(w[n]); //for each adjacent vertex call dfs()
 
         //traverse the vertices to check which is visited
-        for (var k = 0; k < this.nv; k++)
+        for (var k = 0; k &lt; this.nv; k++)
         {
             //if visited set 1 in the corresponding TC matrix
             if (this.vert[k].visit)
@@ -336,7 +364,7 @@ function PrimImpl()
 
     // in this loop we should make all vertex unvisited
    // we will use variable un means unvisited
-    for (var un = 0; un < this.nv; m++)
+    for (var un = 0; un &lt; this.nv; m++)
     {
         this.vert[un].visit = false;
     }
@@ -346,18 +374,18 @@ function PrimImpl()
 
     var min = Infinity; // any number would be less than infinty
 
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         //get fringe vertices of the current vertext
-        for (var j = 0; j < verticesTree.length; j++)
+        for (var j = 0; j &lt; verticesTree.length; j++)
         {
             //get fringe vertices of the current vertext
             var incident_Edge = verticesTree[j].incidentEdges();
             //loop on every fringe vertex
-            for (var k = 0; k < incident_Edge.length; k++)
+            for (var k = 0; k &lt; incident_Edge.length; k++)
             {
                 //check every unvisited vertex to check if it can be visited in a shorter distance
-                if ((!this.vert[incident_Edge[k].adjVert_i].visit) && (incident_Edge[k].edgeWeight < min))
+                if ((!this.vert[incident_Edge[k].adjVert_i].visit) &amp;&amp; (incident_Edge[k].edgeWeight &lt; min))
                 {
                     this.Prim_Edge[i] =
                         (
@@ -448,7 +476,7 @@ function adjacentByIdImpl()
 {
     var adjacentArr = [];
     var adjacency_list = this.adjacent.traverse();
-    for (var i = 0; i < adjacency_list.length; i++)
+    for (var i = 0; i &lt; adjacency_list.length; i++)
     {
         adjacentArr[i] = adjacency_list[i].target_v;
     }
@@ -462,13 +490,13 @@ function better_input(v, e)
     this.nv = v.length;
     this.ne = e.length;
     // input vertices into internal vertex array
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         this.vert[i] = new Vertex(v[i]);
     }
     // input vertex pairs from edge list input array
     // remember to pass vertex ids to add_edge()
-    for (var i = 0; i < this.ne; i++)
+    for (var i = 0; i &lt; this.ne; i++)
     {
         this.addEdge(e[i].u, e[i].v, e[i].w);
     }
@@ -502,8 +530,8 @@ function better_output()
             break;
     }
 
-    document.write("<p>GRAPH {", this.label, "} ", this.weighted ? "" : "UN", "WEIGHTED, ", this.digraph ? "" : "UN", "DIRECTED - ",
-        this.nv, " VERTICES, ", this.ne, " EDGES:</p>", out, "</p>");
+    document.write("&lt;p>GRAPH {", this.label, "} ", this.weighted ? "" : "UN", "WEIGHTED, ", this.digraph ? "" : "UN", "DIRECTED - ",
+        this.nv, " VERTICES, ", this.ne, " EDGES:&lt;/p>", out, "&lt;/p>");
 
     // list vertices
     this.list_vert();
@@ -531,7 +559,7 @@ function bfsImpl(v_i)
 
         // queue all unvisited vertices adjacent to u
         var w = u.adjacentByID();
-        for (var i = 0; i < w.length; i++)
+        for (var i = 0; i &lt; w.length; i++)
         {
             if (!this.vert[w[i]].visit)
             {
@@ -574,7 +602,7 @@ function dfsImpl(v_i)
 
     // recursively traverse unvisited adjacent vertices
     var w = v.adjacentByID();
-    for (var i = 0; i < w.length; i++)
+    for (var i = 0; i &lt; w.length; i++)
     {
         if (!this.vert[w[i]].visit)
         {
@@ -589,7 +617,7 @@ function incidentEdgesImpl()
     //array of objects
     var enode = [];
     var w = this.adjacent.traverse();
-    for (var i = 0; i < w.length; i++)
+    for (var i = 0; i &lt; w.length; i++)
     {
         enode[i] = {
             "adjVert_i": w[i].target_v,
@@ -616,10 +644,10 @@ function isConnectedImpl()
 function listVertsImpl()
 {
     var i, v; // local variables
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         v = this.vert[i];
-        document.write("VERTEX: ", i, v.vertexInfo(), "<br>");
+        document.write("VERTEX: ", i, v.vertexInfo(), "&lt;br>");
     }
 }
 
@@ -627,11 +655,11 @@ function listVertsImpl()
 function makeAdjMatrixImpl()
 {
     //adjacency matrix initialzied by zero
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         this.adjMatrix[i] = [];
 
-        for (var j = 0; j < this.nv; j++)
+        for (var j = 0; j &lt; this.nv; j++)
         {
             this.adjMatrix[i][j] = 0;
         }
@@ -639,11 +667,11 @@ function makeAdjMatrixImpl()
 
     // when vertex has an adjacency set 1
     var v, w;
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         v = this.vert[i];
         w = v.adjacentById();
-        for (var j = 0; j < w.length; j++)
+        for (var j = 0; j &lt; w.length; j++)
         {
             this.adjMatrix[i][w[j]] = 1;
         }
@@ -653,14 +681,14 @@ function makeAdjMatrixImpl()
 // --------------------
 function makeAdjMatrixImpl2()
 {
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         //get vertex
         var v = this.vert[i];
 
         //create and initialize the corresponding row
         this.adjMatrix[i] = [];
-        for (var j = 0; j < this.nv; j++)
+        for (var j = 0; j &lt; this.nv; j++)
         {
             this.adjMatrix[i][j] = 0;
         }
@@ -668,7 +696,7 @@ function makeAdjMatrixImpl2()
         //process adjacent vertices: get by edge node, set value for each
         var e = v.adjacent.traverse(),
             m = e.length; //note encap mistake
-        for (var j = 0; j < m; j++)
+        for (var j = 0; j &lt; m; j++)
         {
             this.adjMatrix[i][e[j].target_v] = this.weighted ? e[j].weight : 1;
         }
@@ -678,14 +706,14 @@ function makeAdjMatrixImpl2()
 // --------------------
 function makeAdjMatrixImpl3()
 {
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         //get vertex
         var v = this.vert[i];
 
         //create and initialize the corresponding row
         this.adjMatrix[i] = [];
-        for (var j = 0; j < this.nv; j++)
+        for (var j = 0; j &lt; this.nv; j++)
         {
             this.adjMatrix[i][j] = 0;
         }
@@ -693,7 +721,7 @@ function makeAdjMatrixImpl3()
         //process adjacent vertices: get by edge node, set value for each
         var e = v.adjacentByID();
         var info = v.incidentEdges();
-        for (var j = 0; j < e.length; j++)
+        for (var j = 0; j &lt; e.length; j++)
         {
             this.adjMatrix[i][e[j]] = this.weighted ? info[j].edgeWeight : 1;
         }
@@ -709,8 +737,8 @@ function makeGraphImpl(n, m, w)
 // --------------------
 function printGraphImpl()
 {
-    document.write("<p>GRAPH {", this.label, "} ", this.weighted ? "" : "UN", "WEIGHTED, ", this.digraph ? "" : "UN", "DIRECTED - ",
-        this.nv, " VERTICES, ", this.ne, " EDGES:</p>", this.componentInfo(), "</p>");
+    document.write("&lt;p>GRAPH {", this.label, "} ", this.weighted ? "" : "UN", "WEIGHTED, ", this.digraph ? "" : "UN", "DIRECTED - ",
+        this.nv, " VERTICES, ", this.ne, " EDGES:&lt;/p>", this.componentInfo(), "&lt;/p>");
 
     // list vertices
     this.listVerts();
@@ -720,12 +748,12 @@ function printGraphImpl()
 function topoSearchImpl(fun)
 {
     // mark all vertices unvisited
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         this.vert[i].visit = false;
     }
     // traverse a connected component
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 0; i &lt; this.nv; i++)
     {
         if (!this.vert[i].visit)
         {
@@ -739,3 +767,26 @@ function vertexInfoImpl()
 {
     return " {" + this.label + "} - VISIT: " + this.visit + " - ADJACENCY: " + this.adjacentByID();
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#_v">_v</a></li><li><a href="global.html#dfsTC">dfsTC</a></li><li><a href="global.html#DfsTC">DfsTC</a></li><li><a href="global.html#dfsTCImpl">dfsTCImpl</a></li><li><a href="global.html#hasPath">hasPath</a></li><li><a href="global.html#isDAG">isDAG</a></li><li><a href="global.html#isDAGImpl">isDAGImpl</a></li><li><a href="global.html#PrimImpl">PrimImpl</a></li><li><a href="global.html#shortestPath">shortestPath</a></li><li><a href="global.html#warshallFloyd">warshallFloyd</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sun Apr 05 2020 12:36:21 GMT+0300 (Arabian Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
