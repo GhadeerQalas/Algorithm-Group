@@ -44,21 +44,21 @@ function PQueue()
       Return true if queue empty
       @method
     */
-	this.isEmpty = isEmptyImp1;
+	this.isEmpty = isEmptyImpl;
 	
 
 	/**
       Remove/Return item with minimum priority
       @method
      */
-	this.deleteMin = deleteMinImp1;              
+	this.deleteMin = deleteMinImpl;              
 
 
 	/**
       Insert/Update an item with priority
       @method
      */
-	this.insert = insertImp1;                  
+	this.insert = insertImpl;                  
 	
 }
 
