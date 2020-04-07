@@ -33,19 +33,19 @@ function main_graph()
 
 	// use printGraph() method to check graph
 	g.printGraph();
-	
+
 	// perform breadth-first search and output stored result
 	g.topoSearch(1);// 0 means DFS choice, while 1 means BFS choice of topological search
 	// report connectivity status if available
 	document.write("<p>", g.componentInfo(), "</p>");
-	
+
 	document.write("<p>bfs_order: ", g.bfs_order, "</p>");
 
 
 //------------- print transitive closure matrix using Warshall-Floyd---------------------------
     document.write('<br>Transitive closure<br>');
     g.warshallFloyd();
-    
+
     if(g.adjMatrix[0][0].tc === undefined)
     {
         document.write("Transitive closure is computed for directed graph only<br>");
@@ -61,27 +61,27 @@ function main_graph()
     }
 
 //--------------------------print distance matrix using Warshall-Floyd---------------------------
-	
+
 	document.write('<br>Distance matrix <br>');
         g.warshallFloyd();
-    	
+
      for (var i = 0; i < g.floydD.length; i++)
     {
         document.write(g.floydD[i], "<br>");
     }
 
 
-//-------------------print output of MST by prim------------------------------------------------  
+//-------------------print output of MST by prim------------------------------------------------
 
     document.write('<br>MST by Prim2 (linear PQ)<br>');
-    
+
     g.PrimMST();
     if(g.weighted){
         for(i=0; i<g.verticesTree.length-1; i++){
         document.write((g.verticesTree[i].dis===undefined? '':g.verticesTree[i].dis) ,'(',g.verticesTree[i].parent,',',g.verticesTree[i].V,'),');
-    } 
+    }
     document.write((g.verticesTree[g.verticesTree.length-1].dis===undefined? '':g.verticesTree[g.verticesTree.length-1].dis) ,'(',g.verticesTree[g.verticesTree.length-1].parent,',',g.verticesTree[g.verticesTree.length-1].V,').<br>');
-    
+
     }
     else
     {
@@ -89,7 +89,7 @@ function main_graph()
     }
 
 
-//------------------print shortest path by Dijkstra--------------------------------------------	
+//------------------print shortest path by Dijkstra--------------------------------------------
 	/**
   @Dijkstra to print shortest path by Dijkstra from vertex 0. this method problem is work only for weighted graph.
   */
@@ -101,13 +101,13 @@ function main_graph()
     }
     document.write((g.verticesTree[g.verticesTree.length-1].dis===undefined? '':g.verticesTree[g.verticesTree.length-1].dis) ,'(',g.verticesTree[g.verticesTree.length-1].parent,',',g.verticesTree[g.verticesTree.length-1].V,').<br>');
     }
-	
+
 	document.write('<br>Distance matrix from Dijkstra<br>');
 	var disMatrixDijkstra = [];
-    
+
     if(g.weighted){
         for(i=0; i<g.nv; i++){
-            g.Dijkstra(i);             
+            g.Dijkstra(i);
             disMatrixDijkstra[i] = [];
 
             for(j=0; j<g.nv; j++){
@@ -162,8 +162,8 @@ function Graph()
     this.label = ""; // identification string to label graph
     this.connectedComp = 0;	// number of connected comps set by DFS; 0 (default) for no info
     this.adjMatrix = []; // graph adjacency matrix to be created on demand
-	this.verticesTree = []; 
-	
+	this.verticesTree = [];
+
 	// base member methods
     this.listVerts = listVertsImpl;
     this.readGraph = better_input;// default input reader method
@@ -202,7 +202,7 @@ function Graph()
 	this.DfsTC = dfsTCImpl;
 
 	this.PrimMST = primImpl2;
-	this.Dijkstra = DijkstraImpl; 
+	this.Dijkstra = DijkstraImpl;
 }
 
 
@@ -322,6 +322,13 @@ function dfsTCImpl()
     }
 }
 
+/**
+ * Represents a function
+ * @implement this function find the minimum spanning tree of the edges between vertices
+ * @author Ghadeer Qalas
+ * @function PrimImpl
+ * @type void
+ */
 function PrimImpl()
 {
     // // create nodes
@@ -378,6 +385,14 @@ function PrimImpl()
 
 
 //----------------------------------prim2-------------------------------------------
+/**
+ * Prim's algorithm using PQ
+ *
+   @author Arwa alhamadi
+   @implements Graph#primImpl2
+   @function
+   @param {integer} s the source vertex
+*/
 
 function primImpl2(){
 
@@ -388,75 +403,62 @@ function primImpl2(){
     var pq = new PQueue();
 
     // create the penulimate array
-    var penultimate = []; 
+    var penultimate = [];
 
     // create array have all weights of edges
-    var weight = []; 
+    var weight = [];
 
-    this.verticesTree=[]; 
+    this.verticesTree=[];
     var u;
-
-    
-
 
     for (var j = 0; j < this.nv; j++)
 
     {
-	// mark all vertices unvisited and if penulimate array equal '-' 
+	// mark all vertices unvisited and if penulimate array equal '-'
         this.vert[j].visit = false;
         penultimate[j] = "-";
     	// set all the weight array by infinity.
         weight[j] = Infinity;
-
     }
-
-
-
     // edges array contains all the edges (v,u)
     var edges =this.vert[0].incidentEdges();
 
     for(var i=0;i<edges.length;i++){
 
         //insert dest. vertex and weight of edge in the queue.
-        pq.insert(edges[i].adjVert_i, edges[i].edgeWeight); 
+        pq.insert(edges[i].adjVert_i, edges[i].edgeWeight);
 
         // make a src. vertex penultimate of dest. vertex.
-        penultimate[edges[i].adjVert_i]=0; 
+        penultimate[edges[i].adjVert_i]=0;
 
         //add weight of edge to weight array.
         weight[edges[i].adjVert_i] = edges[i].edgeWeight;
 
     }
-
-
     //mark the vertex as true
     this.vert[0].visit = true;
 
-    //intitalize verticesTree by the first vertex 
+    //intitalize verticesTree by the first vertex
     this.verticesTree[0] = {
         V: 0,
         parent: penultimate[0]
 
-    } 
-
-
-
+    }
     //path for the rest vertices
     for(var i=1; i<this.nv; i++){
 
-        //delete the minimum weighted edge 
+        //delete the minimum weighted edge
         u =pq.deleteMin();
 
         //mark a vertex visited
         this.vert[u].visit = true;
 
-       
         //add the vertex that was deleted
         this.verticesTree[i] = {
             V: u,
             parent: penultimate[u]
 
-        }  
+        }
 
 
 
@@ -479,14 +481,14 @@ function primImpl2(){
                 weight[edges[j].adjVert_i] = edges[j].edgeWeight;
 
             }
-            
+
 
         }
 
     }
 
  }
- 
+
 
 }
 
@@ -854,7 +856,7 @@ function vertexInfoImpl()
  * Dijkstra algorithm to find the shortest path from a specific point to all other vertices.
  * this method works in weighted connectd graph
  * verticesTree is used to store the tree edges
- * 
+ *
    @author Elham Saleem
    @implements Graph#Dijkstra
    @param {integer} s the source vertex
@@ -869,7 +871,7 @@ function DijkstraImpl(source){
 
         //initialize queue
         for(var i=0; i<this.nv; i++){
-            distances[i] = Infinity; 
+            distances[i] = Infinity;
             penultimate[i] = "-";           //this is to store the (next to last) vertex of vertex i.
             priorityQ.insert(i, distances[i]);
 
@@ -880,7 +882,7 @@ function DijkstraImpl(source){
         //intalize the tree by the source
         distances[source] = 0;
         priorityQ.insert(source, distances[source]);
-        
+
 
         //add next vertex to the tree
         for(var i=0; i<this.nv; i++){
@@ -891,8 +893,8 @@ function DijkstraImpl(source){
                 V: u,                    //the vertex is represent in V
                 parent: penultimate[u],     //the (next to last) vertex is represent in parent.
                 dis: distances[u]      //the distance from the source to the current vertex is represent in dis .
-            } 
-        
+            }
+
 			// get the adjacents vertices of the current vertex
             var adjacents = this.vert[u].incidentEdges();
             for(var j=0; j<adjacents.length; j++){

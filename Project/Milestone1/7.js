@@ -29,7 +29,7 @@ function _main()
     g.readGraph(_v, _e);
 
     // output the graph adjacency matrix
-    g.makeAdjMatrix(); 
+    g.makeAdjMatrix();
 
 
     // use printGraph() method to check graph
@@ -118,15 +118,15 @@ function Graph()
     this.add_edge = addEdgeImpl3; 	// Insert an edge
     this.printGraph = printGraphImpl; 	// Print graph information
 
-    this.makeGraph = makeGraphImpl; // Create a random graph   
+    this.makeGraph = makeGraphImpl; // Create a random graph
 
     this.dfs = dfsImpl; 			// DFS a connected component
     this.bfs = bfsImpl; 			// BFS a connected component
     this.makeAdjMatrix = makeAdjMatrixImpl3; 	// Create adjacency matrix
-    this.isConnected = isConnectedImpl; 	// Test if graph is connected 
+    this.isConnected = isConnectedImpl; 	// Test if graph is connected
 
 
-    this.componentInfo = componentInfoImpl; // print connectivity info 
+    this.componentInfo = componentInfoImpl; // print connectivity info
     this.topoSearch = topoSearchImpl; 	    // perform a topological search
 
 }
@@ -268,7 +268,7 @@ function addEdgeImpl2(u_i, v_i, weight)
 
 
 // -------------------------------------------------------------------------
-// Add an edge from a vertex pair and an optional weight. 
+// Add an edge from a vertex pair and an optional weight.
 // A better implementation which relies on a vertex method to handle adjacency details.
 
 function addEdgeImpl3(u_i, v_i, weight)
@@ -276,16 +276,12 @@ function addEdgeImpl3(u_i, v_i, weight)
     // fetch vertices using their id, where u: edge source vertex, v: target vertex
     var u = this.vert[u_i];
     var v = this.vert[v_i];
-
-
+    
     // insert (u,v), i.e., insert v in adjacency list of u
     // (first create edge object using v_i as target, then pass object)
-
     u.insertAdjacent(v_i, weight);
 
-
     // insert (v,u) if undirected graph (repeat above but reverse vertex order)
-
     if (!this.digraph)
     {
 
@@ -336,7 +332,7 @@ function topoSearchImpl(fun)
 }
 
 // -------------------------------------------------------------------------
-// Recursively traverse a connected component depth-first starting at passed vertex. 
+// Recursively traverse a connected component depth-first starting at passed vertex.
 // Inserts visited vertex id in visit order in dfs_push.
 function dfsImpl(v_i)
 {
@@ -366,7 +362,7 @@ function bfsImpl(v_i)
     // get vertex v by its id
     var v = this.vert[v_i];
 
-    // process v 
+    // process v
     v.visit = true;
 
     // initialize queue with v
@@ -399,8 +395,8 @@ function bfsImpl(v_i)
 
 
 // -------------------------------------------------------------------------
-// Generate adjacency matrix representation of graph 
-// obsolete, use makeAdjMatrixImpl3 instead. 
+// Generate adjacency matrix representation of graph
+// obsolete, use makeAdjMatrixImpl3 instead.
 // This function doesn't support weighted edges, and is not coded optimally.
 
 function makeAdjMatrixImpl()
@@ -416,7 +412,7 @@ function makeAdjMatrixImpl()
             this.adjMatrix[i][j] = 0;
         }
 
-        // for each vertex, set 1 for each adjacent  
+        // for each vertex, set 1 for each adjacent
 
         var w = this.vert[i].adjacentById();
 
@@ -429,7 +425,7 @@ function makeAdjMatrixImpl()
 
 
 // -------------------------------------------------------------------------
-// Generate adjacency matrix representation of graph 
+// Generate adjacency matrix representation of graph
 // obsolete, use makeAdjMatrixImpl3 instead. better encapsulation can be applied.
 
 function makeAdjMatrixImpl2()
@@ -550,7 +546,7 @@ function vertexInfoImpl()
 
 
 // -------------------------------------------------------------------------
-//Insert a new edge node in the adjacency list of vertex. 
+//Insert a new edge node in the adjacency list of vertex.
 //It updates the internal adjacency list representation
 function insertAdjacentImpl(v_i, weight)
 {
