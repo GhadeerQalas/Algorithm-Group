@@ -34,11 +34,15 @@ function main_graph()
 	// use printGraph() method to check graph
 	g.printGraph();
 
-	// perform breadth-first search and output stored result
-	g.topoSearch(1);// 0 means DFS choice, while 1 means BFS choice of topological search
+	// perform depth-first search and output stored result
+	g.topoSearch(0);	
+	document.write("<p>dfs_push: ", g.dfs_push, "</p>");
+	
 	// report connectivity status if available
 	document.write("<p>", g.componentInfo(), "</p>");
 
+	// perform breadth-first search and output stored result
+	g.topoSearch(1);
 	document.write("<p>bfs_order: ", g.bfs_order, "</p>");
 
 
@@ -388,7 +392,7 @@ function PrimImpl()
 /**
  * Prim's algorithm using PQ
  *
-   @author Arwa alhamadi
+   @author Arwa alahmadi
    @implements Graph#primImpl2
    @function
    @param {integer} s the source vertex
