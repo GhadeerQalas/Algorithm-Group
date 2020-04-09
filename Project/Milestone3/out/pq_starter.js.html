@@ -56,7 +56,9 @@
 
 /**
    Create a priority queue
+
    @author Reem Khalil
+
    @constructor
 */
 
@@ -95,7 +97,9 @@ function PQueue()
 
 /**
    Create a new PQ node with two parameters item and its priority key
+
    @author Reem Khalil
+
    @constructor
    @param {integer} item Data item value (vertex id)
    @param {integer} key Priority key value 
@@ -126,7 +130,9 @@ function PQNode(item, key)
 
 /**
    Return true if the queue is empty otherwise return false.
+
    @author Reem Khalil
+
    @implements PQueue#isEmpty
    @returns {boolean} True if PQ is empty 
 */
@@ -139,70 +145,33 @@ function isEmptyImpl()
 
 
 /**
-   Remove the item with the min priority from the PQueue and return it's data item .
+   delete the first node in the pirorty queue and return it's data item .
+
    @author Reem Khalil
+
    @implements PQueue#deleteMin
-   @return {integer} The data item of deleted item with the min priority 
+   @return {integer} The data item of deleted node
 */
 
 function deleteMinImpl()
 {
+    if (!this.isEmpty())
+    {
+        var temp = this.pq.first;
+        this.pq.first = this.pq.first.next;
+        return (temp.item.item);
+    }
 
-	   // pointer first node in the PQ 
-	   var pointer = this.pq.first;
-	   
-	   // the node of item with minimum value of key is the first node of PQ (intial value)
-	   var minimum = this.pq.first;
-	   
-       // initialize the previous node of node of item with minimum value with null value
-	   var previous = null ;
-	   
-
-       // search for the node of item with the minimum value of key 
-       while(pointer != null){
-
-           // check if the key of the current item is smaller than the key of the minimum item
-		 if( (pointer.next != null) &amp;&amp; (pointer.next.item.prior &lt; minimum.item.prior) )
-		 {
-
-           // update the min. 
-		   minimum = pointer.next ;
-		   
-           // update the previous 
-		   previous = pointer ;
-		   
-		 }
-		 
-         // Update the pointer
-		 pointer = pointer.next;
-		 
-	   }
-	   
-       // check if node of item with minimum value of key is the first one in PQ
-	   if(minimum == this.pq.first)
-	   { 
-
-          // return the data item of item with the minimum value of key and delete it
-		  return this.pq.deleteFirst().item;
-		  
-	   }
-	   
-	   else
-	   {
-		 
-          // Update the previous to points the node next to the min
-		  previous.next = minimum.next;
-		  
-          // return the data item of item with the minimum value of key
-          return minimum.item.item;
-       }
+	
 }
 
 
 
 /**
-   Insert a new item into the PQueue or update an item with new priority if the new key smaller than the current key.
+   Insert a new item into the PQueue or update a priority of the item if the new key smaller than the current key.
+
    @author Reem Khalil
+
    @implements PQueue#insert
    @param {ineger} item Data item to be inserted in the PQ (vertex id)
    @param {integer} key Priority key value  
@@ -212,58 +181,88 @@ function insertImpl(item, key)
 {
 
     // creat new PQNode to store the item and key 
-	var item = new PQNode(item,key);
+	var pqnode = new PQNode(item,key);
 	
+
+    //----------------------------------------
+    // apdate case
+
+    
+    // walker variable
+    var l = this.pq.first; 
+ 
+    var previous;
+ 
+    // walk down list 
+    while (l != null)
+    {
+        if (pqnode.item == l.item.item)
+        {
+ 
+            // if the node is the first node then deleteMin &amp; re-insert it  	
+            if (l == this.pq.first)
+            {
+                
+                this.deleteMin();
+
+            }// otherwise, link the previous node with next &amp; re-insert updated node
+            else
+            {
+                previous.next = l.next;
+            }
+
+            break;
+        }
+        previous = l;
+        l = l.next;
+    }
+ 
+
+
+
+    //----------------------------------------
+    // insert case
+
     // pointer the first item in the PQ
 	var pointer = this.pq.first;
-	
-    // true in insert and false in update (intialiy true) 
-	var insert = true;
-	
+
+
     // if the PQ is empty  
 	if (this.isEmpty())
 	{
+        this.pq.insert(pqnode); 
 
-		this.pq.insert(item);
-		
-        // Update insert val. to false
-        insert = false;
+    }// if the key is the minimum , insert it in the first
+    else if (pqnode.prior &lt; pointer.item.prior)
+    {   
 
-	}
-	
-	else
-	{ 
-		
-		// search the item and update it's key
-        while (pointer != null) { 
+        this.pq.first = new LNode(pqnode);
+        this.pq.first.next = pointer;   
 
-			// if the data item equal to another data item in the PQ
-            if (item.item == pointer.item.item) {
-
-				// update the priority
-				pointer.item.prior = key;
-				
-				// update insert val. to false 
-				insert = false;
-				
-                // break the loop
-                break; 
-			}
-			
-
-			// update the pointer
-            pointer = pointer.next;
+    } // otherwise walk down list and insert the node in the correct position
+    else
+    {
+        var l = this.pq.first; // walker variable
+        while (l.next != null)
+        {
+            if (l.next.item.prior > pqnode.prior)
+            {
+                break;
+            }
+            l = l.next;
         }
-
-	}
-	
-	// insert new item
-    if (insert) {
-
-        this.pq.insert(item);
+        var temp = new LNode(pqnode)
+        temp.next = l.next;
+        l.next = temp;
     }
-    
-}</code></pre>
+
+   
+
+}
+
+
+
+</code></pre>
         </article>
     </section>
 
@@ -279,7 +278,7 @@ function insertImpl(item, key)
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Apr 07 2020 20:33:07 GMT+0300 (Arabian Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 09 2020 19:39:55 GMT+0300 (Arabian Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
