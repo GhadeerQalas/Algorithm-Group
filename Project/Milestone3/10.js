@@ -14,6 +14,7 @@
 */
 var _v = [], _e = [];
 
+
 // -----------------------------------------------------------------------
 
 function main_graph()
@@ -46,6 +47,7 @@ function main_graph()
 	document.write("<p>bfs_order: ", g.bfs_order, "</p>");
 
 
+	
 //------------- print transitive closure matrix using Warshall-Floyd---------------------------
     document.write('<br>Transitive closure<br>');
     g.warshallFloyd();
@@ -64,6 +66,7 @@ function main_graph()
         }
     }
 
+	
 //--------------------------print distance matrix using Warshall-Floyd---------------------------
 
 	document.write('<br>Distance matrix <br>');
@@ -75,6 +78,7 @@ function main_graph()
     }
 
 
+	
 //-------------------print output of MST by prim------------------------------------------------
 
     document.write('<br>MST by Prim2 (linear PQ)<br>');
@@ -92,6 +96,7 @@ function main_graph()
        document.write('minimal spanning tree works for weighted graph only<br>');
     }
 
+	
 
 //------------------print shortest path by Dijkstra--------------------------------------------
 	/**
@@ -132,14 +137,15 @@ function Vertex(v)
 	// base property fields
 	this.label = v.label;						// vertex can be labelled
 	this.visit = false; 						// vertex can be marked visited or "seen"
-  this.adjacent = new List();					// init an adjacency list
+        this.adjacent = new List();					// init an adjacency list
 
 	// base member methods
-	this.adjacentByID = adjacentByIdImpl; 		// Get id of adjacent vertices in an array.
-  this.incidentEdges = incidentEdgesImpl;		// return target id of incident edges in array
-  this.vertexInfo = vertexInfoImpl;			// Get vertex details in a printable string
-  this.insertAdjacent = insertAdjacentImpl;	// Insert a new edge node in the adjacency list of vertex.
+        this.adjacentByID = adjacentByIdImpl; 		// Get id of adjacent vertices in an array.
+        this.incidentEdges = incidentEdgesImpl;		// return target id of incident edges in array
+        this.vertexInfo = vertexInfoImpl;			// Get vertex details in a printable string
+        this.insertAdjacent = insertAdjacentImpl;	// Insert a new edge node in the adjacency list of vertex.
 }
+
 
 // -----------------------------------------------------------------------
 
@@ -149,6 +155,7 @@ function Edge(vert_i,weight)
     this.target_v = vert_i;						//Id of edge target vertex
     this.weight = weight;						//Edge weight/cost
 }
+
 
 
 // -----------------------------------------------------------------------
@@ -246,11 +253,11 @@ function warshallFloydImpl()
     // implement the ADJACENCY matrix
     this.makeAdjMatrix();
 
-    //Fill  warshallTC[] and distance matrices (floydD[]) by adjacent matrix
+    // Fill  warshallTC[] and distance matrices (floydD[]) by adjacent matrix
     for (var k = 0; k < this.adjMatrix.length; k++)
     {
         //Copy row by row
-        this.warshallTC[k] = this.adjMatrix[k].slice();
+         this.warshallTC[k] = this.adjMatrix[k].slice();
         this.floydD[k] = this.adjMatrix[k].slice();
         for (var x = 0; x < this.nv; x++)
         {
