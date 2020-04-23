@@ -356,43 +356,51 @@ function heapheapify(key) {
 }
 
 //-----------------------------------------
-
+/**
+ *  we changed the children, keys the node's key with
+ * the larger key and in each iteration checks with parent nodes till reach to key suitable
+ *  @function heapreheapify
+ *  @author Ghadeer Qalas
+ */
 function heapreheapify() {
 
-    //Get the heap size
-    var n = this.size;
+    var node = this.size; // set the size to heap
+    var pn = Math.floor(node/2); // use math floor to set last parent node to pn = parent node
 
-    //Get the last parent node
-    var m = Math.floor(n/2);
+     var i = pn; // set new varibale and get value pn.
+     while(i >= 1)
+     {
+         var key = i;
+         var v = this.h[key];
+         var v2 = this.h_item[key];
+         var heap = false; // here intitalize heap with boolean value false
 
-    for (var i = m; i >= 1; i--) {
-        var key = i;
-        var v = this.h[key];
-        var v2 = this.h_item[key];
-        var heap = false;
-
-        while (!heap && 2 * key <= n) {
-            var j = 2 * key;
-            if (j < n) {
-                if (this.h[j] < this.h[j + 1]) {
-                    j += 1;
-                }
-            }
+        for (var j = 2 * key; !heap && 2 * key <= node;)
+        {
+             if (j < node)
+             {
+                 if (this.h[j] < this.h[j + 1]) {
+                     j += 1;
+                 } // end the inner if
+             } // end the outer if
 
 
-        if (v >= this.h[j]) {
-                heap = true;
-             }
-	else {
-                this.h_item[key] = this.h_item[j];
-                this.h[key] = this.h[j];
-                key = j;
-            }
+           if (v >= this.h[j])
+           {
+             heap = true;
+           } // end if
+           else
+           {
+              this.h_item[key] = this.h_item[j];
+              this.h[key] = this.h[j];
+              key = j;
+            } // end wlse
 
-            this.h[key] = v;
-            this.h_item[key] = v2;
-        }
-    }
+             this.h[key] = v;
+             this.h_item[key] = v2;
+         }
+       i = i-1; // here decreese the number in each iteration
+     } // end while
 }
 
 //-----------------------------------------
