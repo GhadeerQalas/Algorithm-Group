@@ -222,7 +222,11 @@ function random(low,high)
 // -----------------------------------------------------------------------
 // paste your heap package here
 
-
+/**
+* @author : Arwa Fahad
+* @function Heap
+* @return : root
+*/
 function Heap()
 {
 	// h[0] not used, heap initially empty
