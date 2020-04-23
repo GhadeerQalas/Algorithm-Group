@@ -12,11 +12,11 @@ var _v = [], _e = [];   // note naming conventions in upload guide
 
 
 // -----------------------------------------------------------------------
-function _main()   
+function _main()
 {
- 
+
 var heap = new Heap();
-    //operation sequence from the Figure : 
+    //operation sequence from the Figure :
     var ListOfSequence = [
 		{KEY: 2, Vlaue: "a"},
 		{KEY: 9, Vlaue: "b"},
@@ -33,8 +33,8 @@ var heap = new Heap();
     document.write(heap.show());
     heap.insert(15, "h");
     document.write(heap.show());
-    
-    
+
+
    // set input graph properties then implement the graph
     var g = new Graph();
     g.label = "Exercise 9.2: 1b (Levitin, 3rd edition)";
@@ -42,7 +42,7 @@ var heap = new Heap();
     g.printGraph();
 
 
-      
+
 
 //-------------------print output of first prim------------------------------------------------
 
@@ -77,19 +77,19 @@ function Vertex(v)
 // published docs section (ref. assignment page)
 	// for this section, strip line comments
 	// no JSDOC comments in this section
-	
+
 // base property fields
 	this.label = v.label;				// vertex can be labelled
 	this.visit = false; 				// vertex can be marked visited or "seen"
     this.adjacent = new List();				// init an adjacency list
-	
+
 	// base member methods
 	this.adjacentByID = adjacentByIdImpl; 		// Get id of adjacent vertices in an array.
     this.incidentEdges = incidentEdgesImpl;		// return target id of incident edges in array
     this.vertexInfo = vertexInfoImpl;			// Get vertex details in a printable string
-    this.insertAdjacent = insertAdjacentImpl;	// Insert a new edge node in the adjacency list of vertex.	
-	
-	
+    this.insertAdjacent = insertAdjacentImpl;	// Insert a new edge node in the adjacency list of vertex.
+
+
 }
 
 // -----------------------------------------------------------------------
@@ -101,7 +101,7 @@ function Edge(vert_i,weight)
 	// for this section, strip line comments
 	// no JSDOC comments in this section
 
-	
+
 	// base property fields
    	 this.target_v = vert_i;		//Id of edge target vertex
    	 this.weight = weight;
@@ -118,8 +118,8 @@ function Graph()
 // published docs section (ref. assignment page)
 	// for this section, strip line comments
 	// no JSDOC comments in this section
-	
-	
+
+
 	// base property fields
 
     this.vert = [];					// vertex list (an array of Vertex objects)
@@ -129,8 +129,8 @@ function Graph()
     this.weighted = false;				// true if weighted graph, false otherwise (default unweighted)
     this.label = "";					// identification string to label graph
     this.connectedComp = 0;				// number of connected comps set by DFS; 0 (default) for no info
-    this.verticesTree = []; 
-    this.Prim_Edge = [];	
+    this.verticesTree = [];
+    this.Prim_Edge = [];
 
     // base member methods
     this.listVerts = listVertsImpl;			// List graph vertices using info strings returned by Vertex methods
@@ -141,7 +141,7 @@ function Graph()
     this.componentInfo = componentInfoImpl;		// Get printable connectivity info strings
     this.primImpl2 = primImpl2;
     this.primImpl1 = primImpl1;
-	
+
 
 
 }
@@ -161,40 +161,40 @@ function make_graphImpl(n, m, w)   // feel free to change, if needed
 		document.write("<p>ERROR: invalid number of edges for graph type</p>");
 		return;
 	}
-	
+
 	// create n vertex in v[] using id 0 to n-1 as label
 	var v=[];
 	for (var i=0; i<n; i++)
 		v[i] = {label:i.toString()};
 
 	// if graph complete no need to generate random edges, just create mmax edges systematically
-	
+
 
 	// otherwise repreat create m distinct edges (graph loops not allowed)
-	
+
 	var e=[], wmin=1, wmax = 50000, wsum=0;
-	
-	var h = [];   // quick-dirty n x n matrix to check previously generated edges, 
+
+	var h = [];   // quick-dirty n x n matrix to check previously generated edges,
 	              // m-entry hash table would be more efficient
-	for (i=0; i<n; i++)    
+	for (i=0; i<n; i++)
 	{
 		h[i] = []; h[i][i]=0;    // no graph loops; 0 = blocked pair of vertices
 	}
-	
+
 	for (i=0; i<m; i++)
 	{
 		// generate vertices u, v randomly
-		do 
+		do
 		{
 			var u_i = random(0,n-1), v_i = random(0,n-1);
-		
+
 		} while ( h[u_i][v_i] != undefined );
-		
+
 		h[u_i][v_i] = 0; h[v_i][u_i] = 0;     // update matrix: block u,v; block v,u also if undirected
-		
+
 		// if (u,v) is distinct insert in e[] (generate random weight if w true)
 		// otherwise repeat generate another u,v pair
-	
+
 		e[i] = {u:u_i, v:v_i};
 		if (w)
 		{
@@ -226,11 +226,11 @@ function random(low,high)
 function Heap()
 {
 	// h[0] not used, heap initially empty
-	
+
 	this.h = [null];                   // heap of integer keys
 	this.h_item = [null];              // corresponding heap of data-items (any object)
 	this.size = 0;                     // 1 smaller than array (also index of last child)
-	
+
 
 	// --------------------
 	// PQ-required only; more could be added later when needed
@@ -240,11 +240,11 @@ function Heap()
 	this.isEmpty = heapisEmpty;                    // return true if heap empty
 	this.deleteRoot = heapDeleteRoot;              // return data-item in root
 	this.insert = heapInsert;                      // insert data-item with key
-	
+
 	this.heapify = heapheapify;                    // make subtree heap; top-down heapify ("sink") used by .deleteRoot()
 	this.reheapify = heapreheapify;                // bottom-up reheapify ("swim") used by .insert()
 	this.show = heapShow;             	       // utility: return pretty formatted heap as string
-	                                     	       // ... etc 
+	                                     	       // ... etc
 
 	// --------------------
 }
@@ -254,9 +254,9 @@ function heapShow()
 {
 	var n = this.size;
 	var m = Math.floor(n/2);       // last parent node
-	
+
 	var k = this.h.slice(1,n+1), a = this.h_item.slice(1,n+1);
-	
+
 	var out="<h2>Heap (size="+ n+ "):</h2><p>Keys: " + k + "<br>Data: "+ a + "</p>";
 	for (var i=1; i<=m; i++)
 	{
@@ -267,9 +267,9 @@ function heapShow()
 			out+= "<li>"+ this.h[2*i+1]+ "</li>";
 		out+= "</ul></p>";
 	}
-	
+
 	return out;
-}   
+}
 
 // etc.
 //-----------------------------------------
@@ -281,14 +281,14 @@ function heapDeleteRoot()
 	// save root key and item pair
 	else
 	var root = [ this.h[1], this.h_item[1] ];
-	
+
 	// ... complete
 	this.h_item[1] = this.h_item[this.size];
 
         this.h[1] = this.h[this.size];
         this.heapify(1);
         //decrease the heap size since we delete from it
-        this.size -= 1; 
+        this.size -= 1;
 
 	return root;
 }
@@ -296,14 +296,14 @@ function heapDeleteRoot()
 function heapInsert(key, item) {
 
     //increase the size of the heap to insert
-    this.size += 1; 
+    this.size += 1;
 
     this.h[this.size] = key;
 
     this.h_item[this.size] = item;
 
     // reheapify the heap after we insert to maintain it
-    this.reheapify(); 
+    this.reheapify();
 }
 
 //-----------------------------------------
@@ -314,21 +314,21 @@ function heapisEmpty() {
 //-----------------------------------------
 
 function heapheapify(key) {
-    
+
 
     //Left childs index
-    var leftChild = 2 * key; 
+    var leftChild = 2 * key;
 
     //Right childs index
-    var rightChild = 2 * key + 1; 
+    var rightChild = 2 * key + 1;
 
     // make the parent as the large one
-    var large = key; 
+    var large = key;
 
     if (leftChild < this.size && this.h[leftChild] > this.h[large]) {
         large = leftChild;
-    } 
-    
+    }
+
     else {
         large = key;
     }
@@ -359,7 +359,7 @@ function heapreheapify() {
     var n = this.size;
 
     //Get the last parent node
-    var m = Math.floor(n/2); 
+    var m = Math.floor(n/2);
 
     for (var i = m; i >= 1; i--) {
         var key = i;
@@ -378,7 +378,7 @@ function heapreheapify() {
 
         if (v >= this.h[j]) {
                 heap = true;
-             } 
+             }
 	else {
                 this.h_item[key] = this.h_item[j];
                 this.h[key] = this.h[j];
@@ -401,31 +401,31 @@ function heapreheapify() {
 
 
 function PQueue() {
- 
+
 	this.pq = new Heap();          // requirement: Heap implementation
 
-	
+
 	// specify (design) methods
-	
+
 	/**
       Return true if queue empty
       @method
     */
 	this.isEmpty = isEmptyImpl;
-	
+
 
 	/**
       Remove/Return item with minimum priority
       @method
      */
-	this.deleteMin = deleteMinImpl;              
+	this.deleteMin = deleteMinImpl;
 
 
 	/**
       Insert/Update an item with priority
       @method
      */
-	this.insert = insertImpl; 
+	this.insert = insertImpl;
 }
 
 // -----------------------------------------------------------------------
@@ -436,21 +436,21 @@ function PQueue() {
    @author Reem Khalil
    @constructor
    @param {integer} item Data item value (vertex id)
-   @param {integer} key Priority key value 
+   @param {integer} key Priority key value
 */
 
 function PQNode(item, key)
 {
 	/**
-      The value of Data item 
+      The value of Data item
     */
 	this.item = item;
 
 	/**
-      The value of priority 
+      The value of priority
     */
 	this.prior = key;
-	
+
 	// specify (design) methods
 }
 
@@ -465,12 +465,12 @@ function PQNode(item, key)
    Return true if the queue is empty otherwise return false.
    @author Reem Khalil
    @implements PQueue#isEmpty
-   @returns {boolean} True if PQ is empty 
+   @returns {boolean} True if PQ is empty
 */
 
 function isEmptyImpl()
-{   
-	return this.pq.isEmpty();	
+{
+	return this.pq.isEmpty();
 }
 
 //-------------------------------------------------------------------------
@@ -480,11 +480,11 @@ function isEmptyImpl()
    Remove the item with the min priority from the PQueue and return it's data item .
    @author Reem Khalil
    @implements PQueue#deleteMin
-   @return {integer} The data item of deleted item with the min priority 
+   @return {integer} The data item of deleted item with the min priority
 */
 
 function deleteMinImpl() {
-    
+
     var deletedItem = this.pq.deleteRoot();
     deletedItem[0] = deletedItem[0] * -1;
     return deletedItem;
@@ -497,12 +497,12 @@ function deleteMinImpl() {
    @author Reem Khalil
    @implements PQueue#insert
    @param {ineger} item Data item to be inserted in the PQ (vertex id)
-   @param {integer} key Priority key value  
+   @param {integer} key Priority key value
 */
 
 function insertImpl(key, item) {
     return this.pq.insert(key * -1, item);
-    
+
 }
 
 // -----------------------------------------------------------------------
@@ -753,7 +753,7 @@ function primImpl2(){
     {
 	// mark all vertices unvisited and if penulimate array equal '-'
         this.vert[j].visit = false;
-        
+
     	// set all the weight array by infinity.
         weight[j] = Infinity;
     }
@@ -793,7 +793,7 @@ while (!pq.isEmpty()) {
                 }
             }
         }
-        //Update The vertex tree 
+        //Update The vertex tree
         if (!this.vert[u[1]].visit) {
             this.verticesTree[this.verticesTree.length] = {
                 V: u[1],
@@ -801,7 +801,7 @@ while (!pq.isEmpty()) {
             };
             this.vert[u[1]].visit = true;
 
-            //update the priority queue 
+            //update the priority queue
             for (var i = 0; i < edges.length; i++) {
                 if (!this.vert[edges[i].adjVert_i].visit) {
                     pq.insert(edges[i].edgeWeight, edges[i].adjVert_i);
@@ -814,4 +814,3 @@ while (!pq.isEmpty()) {
 }
 
 // -----------------------------------------------------------------------
-
