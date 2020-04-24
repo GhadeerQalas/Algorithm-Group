@@ -56,7 +56,7 @@ var heap = new Heap();
     for (var i = 0; i < g.Prim_Edge.length; i++) {
         document.write("(", g.Prim_Edge[i].v, ",", g.Prim_Edge[i].u, ")");
  	g.Prim_Edge.length-1 == i ? document.write(".<p>") : document.write(", ");
-}
+	}
 
 /**print output of second prim---------------------------------------*/
 
@@ -730,7 +730,7 @@ this.Prim_Edge[0] = {
 
     var min = Infinity; // any number would be less than infinty
 
-    for (var i = 0; i < this.nv; i++)
+    for (var i = 1; i < this.nv; i++)
     {
         //get fringe vertices of the current vertext
         for (var j = 0; j < verticesTree.length; j++)
@@ -741,7 +741,7 @@ this.Prim_Edge[0] = {
             for (var k = 0; k < incident_Edge.length; k++)
             {
                 //check every unvisited vertex to check if it can be visited in a shorter distance
-                if ((!this.vert[incident_Edge[k].adjVert_i].visit) && (incident_Edge[k].edgeWeight < min))
+                if (!this.vert[incident_Edge[k].adjVert_i].visit && incident_Edge[k].edgeWeight < min)
                 {
                     this.Prim_Edge[i] =
                         (

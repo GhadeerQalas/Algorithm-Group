@@ -46,6 +46,12 @@ function Heap()
 // use prefix 'heap' for implementing functions (see examples)
 // if both key and item are needed, pass key before item
 //
+/**
+ *  heapShow is a function for display the heap
+ *  @function heapShow
+ *  @author Arwa Fahad
+ *  @return heap keys and data .
+ */
 
 function heapShow()
 {
